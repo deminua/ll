@@ -16,10 +16,29 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('surname')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('email')->nullable();
             $table->string('password');
+            $table->date('birthday')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('locations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->string('loc_id');
+            $table->string('place_id');
+            $table->string('value');
+            $table->string('types');
+            $table->string('description');
+
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
+
         });
     }
 
@@ -31,5 +50,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('locations');
     }
 }

@@ -14,42 +14,38 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        #$this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+  public function s3()
     {   
 
-        #$exists = Storage::disk('s3')->exists('avatars/ArcheAge_sample.jpg');
+        #$incoming_file = '/Users/John/Desktop/file_loco.jpg';
 
-        #$files = Storage::disk('s3')->allFiles();
-        #return dd($files);
-
-        #$getVisibility = Storage::disk('s3')->getVisibility('avatars/ArcheAge_sample.jpg');
-        #return dd($getVisibility);
-
-        #$get = Storage::disk('s3')->get('avatars/ArcheAge_sample.jpg');
+        #$get = Storage::get('AM113_001_platanus_specular.jpg');
         #return dd($get);
 
-
+        #$exists = Storage::disk('s3')->exists('avatars/ArcheAge_sample.jpg');
+        #$files = Storage::disk('s3')->allFiles();
+        #return dd($files);
+        #$getVisibility = Storage::disk('s3')->getVisibility('avatars/ArcheAge_sample.jpg');
+        #return dd($getVisibility);
+        #$get = Storage::disk('s3')->get('avatars/ArcheAge_sample.jpg');
+        #return dd($get);
         $url = Storage::disk('s3')->url('avatars/AM113_001_platanus_specular.jpg');
-        #return dd($url);
+        return dd($url);
+        
         return response()->file($url);
-
-
         $data = Storage::get('AM113_001_platanus_specular.jpg');
                 Storage::disk('s3')->put('avatars/AM113_001_platanus_specular.jpg', $data);
-
-
         $files = Storage::disk('s3')->allFiles();
         return dd($files);
-
         return view('home');
+    }
 
+    public function index()
+    {
+        return view('home');
     }
 }

@@ -11,13 +11,16 @@
 |
 */
 
+Route::get('profile', 'UserController@profile')->name('user.profile');
+Route::post('profile', 'UserController@update')->name('user.update');
+Route::delete('profile', 'UserController@AvatarDelete')->name('user.avatar.delete');
+
+Route::get('/s3', 'HomeController@s3')->name('s3');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
